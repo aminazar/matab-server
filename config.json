@@ -1,0 +1,12 @@
+{
+  "development": {
+    "initDb":   "postgres",
+    "database": "matab",
+    "pgConnection": "postgres://postgres@localhost:5432/"
+  },
+  "production": {
+    "initDb":   "postgres",
+    "database": "matab",
+    "pgConnection": "postgres://postgres@localhost:5432/"
+  }
+}
