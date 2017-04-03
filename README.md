@@ -1,4 +1,4 @@
-# Burgista Internal Delivery App
+# Matab app
 This app assumes a connection to postgres exists in development server.
 
 * Change **initDb** in **config.json** to the database that already exists in your Postgres (e.g. 'postgres' in Windows, and your user name in Linux)
