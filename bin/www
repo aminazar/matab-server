@@ -4,9 +4,67 @@
  * Module dependencies.
  */
 
+/*************************/
+/*
+//var http = require('http').Server(app);
+//var io = require('socket.io')(http);
+//var app = require('express')();
 var app = require('../app');
-var debug = require('debug')('node-express-seed:server');
+//var debug = require('debug')('matab-s:server');
 var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+
+// Will trigger the provided callback function when a matching event is received
+io.on('connection', function(socket)
+{
+    console.log('user connected');
+
+    //Start listening for server-sent events from Sails with the specified eventIdentity. Will trigger the provided callback function when a matching event is received
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+
+    socket.emit('pageInfoMsg',{N:1,P:2});
+
+    // socket.on('doctor', function(message){
+    //   console.log('doctor!');
+    //   io.emit('pageInfoMsg',{N:1, P:2});
+    // });
+
+    // socket.on('get-message', function(message){
+    //       console.log('addmmm!');
+    //       io.emit('message', {type:'new-message', text: "test"});
+    // });
+
+// socket.emit('pageInfoMsg',msg, function (data) {
+//
+//     console.log("fsfsfs!");
+//     console.log(msg);
+//
+// });
+
+
+// socket.on('pageInfoMsg', function(message,myfn) {
+//   console.log("pageInfoMsg!!");
+//   console.log(message.nid);
+//   myfn("serverData!!");
+//     //io.emit('message', {type:'new-message', text: message});
+// });
+
+});
+
+*/
+
+
+
+
+
+
+
+var app = require('../app');///
+var debug = require('debug')('node-express-seed:server');
+var http = require('http');///
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +77,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(app);///
 
 /**
  * Listen on provided port, on all network interfaces.

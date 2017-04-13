@@ -62,4 +62,11 @@ router.get('/user', apiResponse('User', 'select', true));
 router.post('/user/:uid', apiResponse('User', 'update', true, ['params.uid','body']));
 router.delete('/user/:uid', apiResponse('User', 'delete', true, ['params.uid']));
 
+
+router.post('/addPatient', function(req, res, next)
+{
+    res.send(JSON.stringify('patient respond with a resource'));
+    //rawSql.patients.insert();
+});
+
 module.exports = router;
