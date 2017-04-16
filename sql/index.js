@@ -16,10 +16,12 @@ let usingFunction = query=> {
     checkNone: 'none',
     test: 'one',
     add: 'one',
+    insert: 'one',
+    delete: 'query',
   }[query];
 
   if (!res)
-    res = 'query';
+    res = query.indexOf('get')===-1 ? 'query' : 'any';
 
   return res;
 };
@@ -55,10 +57,11 @@ genericUpdate = (tableName, idColumn, isTest)=> {
   };
 };
 
-genericSelect = (tableName, isTest)=> {
+genericSelect = (tableName, isTest, whereColumns)=> {
   let db = chooseDb(tableName, isTest);
+  let whereClause = whereColumns ? whereColumns.map(col => col + '=${' + col + '}').join(' and '):'';
   return () => {
-    return db.query(`select * from ${tableName}`);
+    return db.any(`select * from ${tableName}${whereClause ? ' where ' + whereClause : ''}`);
   };
 };
 
@@ -77,6 +80,30 @@ let tablesWithSqlCreatedByHelpers = [
     select: false,
     delete: true,
     idColumn: 'uid',
+  },
+  {
+    name: 'patients',
+    insert: true,
+    update: true,
+    select: true,
+    delete: true,
+    idColumn: 'pid',
+  },
+  {
+    name: 'visits',
+    insert: true,
+    update: true,
+    select: true,
+    delete: true,
+    idColumn: 'vid',
+  },
+  {
+    name: 'documents',
+    insert: true,
+    update: true,
+    select: true,
+    delete: true,
+    idColumn: 'did',
   },
 ];
 
@@ -98,8 +125,8 @@ tablesWithSqlCreatedByHelpers.forEach((table)=> {
   }
 
   if (table.select) {
-    wrappedSQL[table.name].select = genericSelect(table.name, false);
-    wrappedSQL.test[table.name].select = genericSelect(table.name, true);
+    wrappedSQL[table.name].select = columns => genericSelect(table.name, false, columns);
+    wrappedSQL.test[table.name].select = columns => genericSelect(table.name, true, columns);
   }
 
   if(table.delete){

@@ -1,1 +1,1 @@
-select uid,name from users
+select uid,name,display_name,is_doctor from users

@@ -28,4 +28,19 @@ module.exports = {
     get:      sql('users/get.sql'),
     select:   sql('users/select.sql'),
   },
+
+  patients: {
+    create: sql('patients/create.sql'),
+    drop:   sql('patients/drop.sql'),
+  },
+
+  visits: {
+    create: sql('visits/create.sql'),
+    drop:   sql('visits/drop.sql'),
+  },
+
+  documents: {
+    create: sql('documents/create.sql'),
+    drop: sql('documents/drop.sql'),
+  }
 };

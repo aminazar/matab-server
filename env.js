@@ -47,4 +47,5 @@ module.exports = {
   test_db_name: test_db_name,
   isProd: isProd,
   isDev: isDev,
+  filePath: '/uploads',
 };

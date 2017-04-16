@@ -17,23 +17,21 @@ function dbTestCreate() {
       });
   });
 }
-
 function createOrExist(tableName) {
-  return new Promise((resolve, reject) => {
-    sql[tableName].create()
-      .then(resolve)
-      .catch(err => {
-        if (err.message.indexOf(`"${tableName}" already exists`) !== -1)
-          resolve();
-        else
-          reject(err);
-      })
-  })
+  return lib.helpers.createOrExist(tableName, sql);
 }
 
 function prodTablesCreate() {
-  return     createOrExist('users');
-    //     .then(createOrExist('products')) //Add new tables in order of dependency in promise chain
+  return new Promise((resolve, reject) => {
+    [
+      'users',
+      'patients',
+      'visits',
+      'documents',
+    ].reduce((x, y) => createOrExist(x).then(createOrExist(y)))
+      .then(resolve())
+      .catch(err => reject(err));
+  });
 }
 
 function adminRowCreate() {

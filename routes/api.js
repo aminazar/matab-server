@@ -2,6 +2,16 @@ const lib = require('../lib');
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const multer = require('multer');
+const env = require('../env');
+const moment = require('moment');
+const storage = multer.diskStorage({
+  destination: env.filePath + '/' + moment().format('YYMMDD'),
+  filename: (req,file,cb) => {
+    cb(null,[req.params.pid ? req.params.pid : '', req.params.vid ? req.params.vid : '',file.originalname].join('|'));
+  }
+});
+const upload = multer({storage: storage});
 
 function apiResponse(className, functionName, adminOnly=false, reqFuncs=[]){
   let args = Array.prototype.slice.call(arguments, 4);
@@ -61,5 +71,21 @@ router.put('/user', apiResponse('User', 'insert', true, ['body']));
 router.get('/user', apiResponse('User', 'select', true));
 router.post('/user/:uid', apiResponse('User', 'update', true, ['params.uid','body']));
 router.delete('/user/:uid', apiResponse('User', 'delete', true, ['params.uid']));
+//Patient API
+router.put('/patient', apiResponse('Patient', 'saveData', false, ['body']));
+router.get('/patient', apiResponse('Patient', 'select', false));
+router.post('/patient/:pid', apiResponse('Patient', 'update', false, ['params.uid','body']));
+router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
+//Visit API
+router.put('/visit', apiResponse('Patient', 'saveData', false, ['body']));
+router.get('/visit/:pid', apiResponse('Patient', 'select', false, ['params']));
+router.post('/visit/:vid', apiResponse('Patient', 'update', false, ['params.vid','body']));
+router.delete('/patient/:vid', apiResponse('Patient', 'delete', false, ['params.vid']));
+//Document API
+router.put('/document', upload.single('file'), apiResponse('Document', 'saveData', false, ['body']));
+router.get('/pdocument/:did', apiResponse('Document', 'select', false, ['params']));
+router.get('/vdocument/:vid', apiResponse('Document', 'select', false, ['params']));
+router.post('/document', upload.single('userfile'), apiResponse('Document', 'saveData', false, ['params.did','file']));
+router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.vid']));
 
 module.exports = router;
