@@ -8,7 +8,7 @@ const moment = require('moment');
 const storage = multer.diskStorage({
   destination: env.filePath + '/' + moment().format('YYMMDD'),
   filename: (req,file,cb) => {
-    cb(null,[req.params.pid ? req.params.pid : '', req.params.vid ? req.params.vid : '',file.originalname].join('|'));
+    cb(null,[req.params.username,file.originalname].join('|'));
   }
 });
 const upload = multer({storage: storage});
