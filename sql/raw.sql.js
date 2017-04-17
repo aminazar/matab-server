@@ -37,6 +37,7 @@ module.exports = {
   visits: {
     create: sql('visits/create.sql'),
     drop:   sql('visits/drop.sql'),
+    getVisitForPage: sql('visits/getVisitForPage.sql'),
   },
 
   documents: {

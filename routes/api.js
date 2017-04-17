@@ -74,18 +74,18 @@ router.delete('/user/:uid', apiResponse('User', 'delete', true, ['params.uid']))
 //Patient API
 router.put('/patient', apiResponse('Patient', 'saveData', false, ['body']));
 router.get('/patient', apiResponse('Patient', 'select', false));
-router.post('/patient/:pid', apiResponse('Patient', 'update', false, ['params.uid','body']));
+router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 'params.pid']));
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API
 router.put('/visit', apiResponse('Patient', 'saveData', false, ['body']));
 router.get('/visit/:pid', apiResponse('Patient', 'select', false, ['params']));
-router.post('/visit/:vid', apiResponse('Patient', 'update', false, ['params.vid','body']));
+router.post('/visit/:vid', apiResponse('Patient', 'saveData', false, ['body','params.vid']));
 router.delete('/patient/:vid', apiResponse('Patient', 'delete', false, ['params.vid']));
 //Document API
 router.put('/document', upload.single('file'), apiResponse('Document', 'saveData', false, ['body']));
 router.get('/pdocument/:did', apiResponse('Document', 'select', false, ['params']));
 router.get('/vdocument/:vid', apiResponse('Document', 'select', false, ['params']));
-router.post('/document', upload.single('userfile'), apiResponse('Document', 'saveData', false, ['params.did','file']));
+router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.vid']));
 
 module.exports = router;
