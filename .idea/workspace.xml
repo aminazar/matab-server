@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ff53961c-9b16-4e8e-b05b-4e075e75cfc0" name="Default" comment="Fixing models and API">
+    <list default="true" id="ff53961c-9b16-4e8e-b05b-4e075e75cfc0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/document.model.js" afterPath="$PROJECT_DIR$/lib/document.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.js" afterPath="$PROJECT_DIR$/routes/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/visits/getVisitForPage.sql" afterPath="$PROJECT_DIR$/sql/visits/getVisitForPage.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configure.js" afterPath="$PROJECT_DIR$/configure.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,11 +23,21 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="api.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/routes/api.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="198">
                   <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="configure.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/configure.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="220">
+                  <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -192,7 +200,6 @@
         <option value="$PROJECT_DIR$/lib/index.js" />
         <option value="$PROJECT_DIR$/sql/documents/create.sql" />
         <option value="$PROJECT_DIR$/lib/helpers.js" />
-        <option value="$PROJECT_DIR$/configure.js" />
         <option value="$PROJECT_DIR$/sql/raw.sql.js" />
         <option value="$PROJECT_DIR$/lib/patient.model.js" />
         <option value="$PROJECT_DIR$/lib/user.model.js" />
@@ -202,6 +209,7 @@
         <option value="$PROJECT_DIR$/sql/visits/getVisitForPage.sql" />
         <option value="$PROJECT_DIR$/lib/document.model.js" />
         <option value="$PROJECT_DIR$/routes/api.js" />
+        <option value="$PROJECT_DIR$/configure.js" />
       </list>
     </option>
   </component>
@@ -411,7 +419,7 @@
       <workItem from="1490674407572" duration="4305000" />
       <workItem from="1491992708970" duration="5518000" />
       <workItem from="1492235539486" duration="10476000" />
-      <workItem from="1492299045034" duration="23899000" />
+      <workItem from="1492299045034" duration="24473000" />
     </task>
     <task id="LOCAL-00001" summary="Adding client">
       <created>1491213868610</created>
@@ -448,11 +456,18 @@
       <option name="project" value="LOCAL" />
       <updated>1492425215960</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixing models and API">
+      <created>1492441493408</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1492441493408</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44823000" />
+    <option name="totallyTimeSpent" value="45397000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -688,14 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sql/users/create.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -836,6 +843,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
         </state>
       </provider>

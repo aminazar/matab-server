@@ -43,7 +43,7 @@ function adminRowCreate() {
       password: 'admin',
     };
 
-    user.insert(data)
+    user.add(data)
       .then(() => {
         resolve();
       })
