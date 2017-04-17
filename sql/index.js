@@ -60,8 +60,9 @@ genericUpdate = (tableName, idColumn, isTest)=> {
 genericSelect = (tableName, isTest, whereColumns)=> {
   let db = chooseDb(tableName, isTest);
   let whereClause = whereColumns ? whereColumns.map(col => col + '=${' + col + '}').join(' and '):'';
-  return () => {
-    return db.any(`select * from ${tableName}${whereClause ? ' where ' + whereClause : ''}`);
+  let query = `select * from ${tableName}${whereClause ? ' where ' + whereClause : ''}`;
+  return (constraints) => {
+    return db.any(query, constraints);
   };
 };
 

@@ -50,7 +50,7 @@ function apiResponse(className, functionName, adminOnly=false, reqFuncs=[]){
             .json(data);
         })
         .catch(err=> {
-          console.log(`${className}/${functionName}: `, err.message);
+          console.log(`${className}/${functionName}: `, env.isProd ? err.message : err);
           res.status(err.status||500)
             .send(err.message || err);
         });
@@ -77,14 +77,14 @@ router.get('/patient', apiResponse('Patient', 'select', false));
 router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 'params.pid']));
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API
-router.put('/visit', apiResponse('Patient', 'saveData', false, ['body']));
-router.get('/visit/:pid', apiResponse('Patient', 'select', false, ['params']));
-router.post('/visit/:vid', apiResponse('Patient', 'saveData', false, ['body','params.vid']));
-router.delete('/patient/:vid', apiResponse('Patient', 'delete', false, ['params.vid']));
+router.put('/visit', apiResponse('Visit', 'saveData', false, ['body']));
+router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
+router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body','params.vid']));
+router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
 //Document API
 router.put('/document', upload.single('file'), apiResponse('Document', 'saveData', false, ['body']));
-router.get('/pdocument/:did', apiResponse('Document', 'select', false, ['params']));
-router.get('/vdocument/:vid', apiResponse('Document', 'select', false, ['params']));
+router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
+router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
 router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.vid']));
 
