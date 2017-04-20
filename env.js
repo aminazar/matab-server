@@ -19,6 +19,7 @@ const db = pgp(connectionString);
 const testDb = pgp(testConnectionString);
 const pgm = require('pg-monitor');
 const color = require("cli-color");
+const path = require('path');
 
 const pgmTheme = {
     time: color.bgBlack.whiteBright,
@@ -47,5 +48,5 @@ module.exports = {
   test_db_name: test_db_name,
   isProd: isProd,
   isDev: isDev,
-  filePath: '/uploads',
+  filePath: path.join(__dirname, config.uploadPath),
 };

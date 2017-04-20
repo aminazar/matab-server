@@ -8,7 +8,7 @@ const moment = require('moment');
 const storage = multer.diskStorage({
   destination: env.filePath + '/' + moment().format('YYMMDD'),
   filename: (req,file,cb) => {
-    cb(null,[req.params.username,file.originalname].join('|'));
+    cb(null,[moment().format('HHmmssSSS'),req.params.username||req.user.username,file.originalname].join('|'));
   }
 });
 const upload = multer({storage: storage});
@@ -62,10 +62,10 @@ router.get('/', function(req, res) {
   res.send('respond with a resource');
 });
 //Login API
-router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username']));
+router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username','user.is_doctor']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
 router.get('/logout', (req,res)=>{req.logout();res.sendStatus(200)});
-router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username']));
+router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username','user.is_doctor']));
 //User API
 router.put('/user', apiResponse('User', 'insert', true, ['body']));
 router.get('/user', apiResponse('User', 'select', true));
@@ -80,13 +80,15 @@ router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.
 //Visit API
 router.put('/visit', apiResponse('Visit', 'saveData', false, ['body']));
 router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
+router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits',false));
+router.get('/my-visit',apiResponse('Visit', 'myVisit',false,['user.uid']));
 router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body','params.vid']));
 router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
 //Document API
-router.put('/document', upload.single('file'), apiResponse('Document', 'saveData', false, ['body']));
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
 router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file']));
-router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.vid']));
+router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveScans',false,['user.uid','params.pid','files','body.description']));
+router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 
 module.exports = router;

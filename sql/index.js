@@ -57,9 +57,9 @@ genericUpdate = (tableName, idColumn, isTest)=> {
   };
 };
 
-genericSelect = (tableName, isTest, whereColumns)=> {
+genericSelect = (tableName, isTest, whereColumns,nullColumns)=> {
   let db = chooseDb(tableName, isTest);
-  let whereClause = whereColumns ? whereColumns.map(col => col + '=${' + col + '}').join(' and '):'';
+  let whereClause = whereColumns ? whereColumns.map(col => col + (nullColumns.includes(col)?' is null':'=${' + col + '}')).join(' and '):'';
   let query = `select * from ${tableName}${whereClause ? ' where ' + whereClause : ''}`;
   return (constraints) => {
     return db.any(query, constraints);
@@ -126,8 +126,8 @@ tablesWithSqlCreatedByHelpers.forEach((table)=> {
   }
 
   if (table.select) {
-    wrappedSQL[table.name].select = columns => genericSelect(table.name, false, columns);
-    wrappedSQL.test[table.name].select = columns => genericSelect(table.name, true, columns);
+    wrappedSQL[table.name].select = (columns,nullColumns) => genericSelect(table.name, false, columns,nullColumns);
+    wrappedSQL.test[table.name].select = (columns,nullColumns) => genericSelect(table.name, true, columns,nullColumns);
   }
 
   if(table.delete){

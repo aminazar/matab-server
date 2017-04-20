@@ -38,10 +38,12 @@ module.exports = {
     create: sql('visits/create.sql'),
     drop:   sql('visits/drop.sql'),
     getVisitForPage: sql('visits/getVisitForPage.sql'),
+    getActiveVisits: sql('visits/getActiveVisits.sql'),
   },
 
   documents: {
     create: sql('documents/create.sql'),
     drop: sql('documents/drop.sql'),
+    getPatientsDocuments: sql('documents/getPatientsDocuments.sql'),
   }
 };

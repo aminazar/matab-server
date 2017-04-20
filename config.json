@@ -2,11 +2,13 @@
   "development": {
     "initDb":   "postgres",
     "database": "matab",
-    "pgConnection": "postgres://postgres@localhost:5432/"
+    "pgConnection": "postgres://postgres@localhost:5432/",
+    "uploadPath": "public/documents"
   },
   "production": {
     "initDb":   "postgres",
     "database": "matab",
-    "pgConnection": "postgres://postgres@localhost:5432/"
+    "pgConnection": "postgres://postgres@localhost:5432/",
+    "uploadPath": "public/documents"
   }
 }
