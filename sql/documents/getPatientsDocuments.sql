@@ -12,3 +12,5 @@ on
     visits.did = users.uid
 where
     documents.pid = ${pid}
+order by
+    saved_at
