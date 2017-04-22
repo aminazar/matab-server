@@ -21,8 +21,7 @@ let usingFunction = query=> {
   }[query];
 
   if (!res)
-    res = query.indexOf('get')===-1 ? 'query' : 'any';
-
+    res = query.indexOf('get')===-1 || query.indexOf('select')===-1 ? 'query' : 'any';
   return res;
 };
 
@@ -71,7 +70,7 @@ genericDelete = (tableName,idColumn,isTest)=>{
   return (id)=> {
     return db.query(`delete from ${tableName} where ${idColumn}=` + id)
   }
-}
+};
 
 let tablesWithSqlCreatedByHelpers = [
   {
