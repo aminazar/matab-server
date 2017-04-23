@@ -5,11 +5,11 @@ from
 left outer join
     visits
 on
-    documents.pid = visits.pid
+    documents.vid = visits.vid
 left outer join
     users
 on
-    visits.did = users.uid
+    users.uid = visits.did
 where
     documents.pid = ${pid}
 order by

@@ -40,6 +40,7 @@ module.exports = {
     drop:   sql('visits/drop.sql'),
     getVisitForPage: sql('visits/getVisitForPage.sql'),
     getActiveVisits: sql('visits/getActiveVisits.sql'),
+    endVisit: sql('visits/endVisit.sql'),
   },
 
   documents: {
