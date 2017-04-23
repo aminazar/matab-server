@@ -74,7 +74,8 @@ router.delete('/user/:uid', apiResponse('User', 'delete', true, ['params.uid']))
 router.get('/doctors', apiResponse('User', 'select', false, [()=>true]));
 //Patient API
 router.put('/patient', apiResponse('Patient', 'saveData', false, ['body']));
-router.get('/patient', apiResponse('Patient', 'select', false));
+router.get('/patient', apiResponse('Patient', 'selectId', false));
+router.get('/patient-full-data/:pid', apiResponse('Patient', 'select', false, ['params']));
 router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 'params.pid']));
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API

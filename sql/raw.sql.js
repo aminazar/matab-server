@@ -32,6 +32,7 @@ module.exports = {
   patients: {
     create: sql('patients/create.sql'),
     drop:   sql('patients/drop.sql'),
+    selectId:sql('patients/selectId.sql'),
   },
 
   visits: {
