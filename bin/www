@@ -4,22 +4,54 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('node-express-seed:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('node-express-seed:server');
+const http = require('http');
+const ws = require('nodejs-websocket');
+const WsCommands = require('../lib/ws.commands.class')
+
+let WSServer = ws.createServer(function (conn) {
+  console.log("New connection", conn.path);
+  conn.on("text", function (str) {
+    //TODO: eval is security risk!
+    if (str[0] === str[str.length - 1] && str[0] === '"')
+    { //To reduce risk of 'eval'
+      let obj = JSON.parse(eval(str));
+      if (obj.cmd) {
+        let wsc = new WsCommands(WSServer.connections);
+        if (wsc[obj.cmd] && typeof wsc[obj.cmd] === 'function') {
+          wsc[obj.cmd](obj);
+        }
+        else {
+          console.log('Socket: non-existent command: ', obj.cmd)
+        }
+      }
+      else {
+        console.log('Socket: bad object: ', obj)
+      }
+    }
+    // else {
+    //   console.log('Socket: bad string: ', str)
+    // }
+  });
+  conn.on("close", function (code, reason) {
+    console.log("Connection closed", code, reason)
+  });
+  conn.on("error", err => console.log('socket error', err));
+}).listen(3001);
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
+app.locals.WSServer = WSServer;
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -34,7 +66,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -58,7 +90,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -82,8 +114,8 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  let addr = server.address();
+  let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
