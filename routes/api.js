@@ -62,10 +62,10 @@ router.get('/', function(req, res) {
   res.send('respond with a resource');
 });
 //Login API
-router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username','user.is_doctor']));
+router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username','user.is_doctor','user.display_name']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
 router.get('/logout', (req,res)=>{req.logout();res.sendStatus(200)});
-router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username','user.is_doctor']));
+router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username','user.is_doctor','user.display_name']));
 //User API
 router.put('/user', apiResponse('User', 'insert', true, ['body']));
 router.get('/user', apiResponse('User', 'select', true));
@@ -83,6 +83,8 @@ router.put('/visit', apiResponse('Visit', 'saveData', false, ['body']));
 router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
 router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits',false));
 router.get('/my-visit',apiResponse('Visit', 'myVisit',false,['user.uid']));
+router.put('/end-visit/:pid', apiResponse('Visit', 'endVisit', false, ['params.pid','user.uid']));
+router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid','params.uid']))
 router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body','params.vid']));
 router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
 //Document API
