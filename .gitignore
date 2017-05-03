@@ -2,3 +2,4 @@
 .idea
 node_modules/
 /public/documents/
+/config.json

@@ -90,7 +90,7 @@ router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid'
 //Document API
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
-router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file']));
+router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file','app.locals.WSServer']));
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveScans',false,['user.uid','params.pid','files','body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 
