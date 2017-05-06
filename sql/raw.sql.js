@@ -41,6 +41,7 @@ module.exports = {
     getVisitForPage: sql('visits/getVisitForPage.sql'),
     getActiveVisits: sql('visits/getActiveVisits.sql'),
     endVisit: sql('visits/endVisit.sql'),
+    myTodayVisits: sql('visits/myTodayVisits.sql'),
   },
 
   documents: {
