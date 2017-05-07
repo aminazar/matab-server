@@ -28,6 +28,7 @@ function prodTablesCreate() {
       'patients',
       'visits',
       'documents',
+      'shares',
     ].reduce((x, y) => createOrExist(x).then(createOrExist(y)))
       .then(resolve())
       .catch(err => reject(err));
