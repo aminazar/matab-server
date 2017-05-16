@@ -29,6 +29,7 @@ function prodTablesCreate() {
       'visits',
       'documents',
       'shares',
+      'waiting_q'
     ].reduce((x, y) => createOrExist(x).then(createOrExist(y)))
       .then(resolve())
       .catch(err => reject(err));

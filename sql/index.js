@@ -105,6 +105,13 @@ let tablesWithSqlCreatedByHelpers = [
     delete: true,
     idColumn: 'did',
   },
+  {
+    name: 'waiting_q',
+    update: true,
+    select: true,
+    delete: true,
+  },
+
 ];
 
 tablesWithSqlCreatedByHelpers.forEach((table)=> {

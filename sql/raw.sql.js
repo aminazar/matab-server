@@ -54,4 +54,8 @@ module.exports = {
     create: sql('shares/create.sql'),
     drop: sql('shares/drop.sql'),
   },
+  waiting_q: {
+    create: sql('waitingSaf/create.sql'),
+    addNewPatientToWating_q: sql('waitingSaf/addNewPatientToWating_q.sql'),
+  },
 };

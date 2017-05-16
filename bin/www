@@ -8,7 +8,7 @@ const app = require('../app');
 const debug = require('debug')('node-express-seed:server');
 const http = require('http');
 const ws = require('nodejs-websocket');
-const WsCommands = require('../lib/ws.commands.class')
+const WsCommands = require('../lib/ws.commands.class');
 
 let WSServer = ws.createServer(function (conn) {
   console.log("New connection", conn.path);
@@ -17,6 +17,7 @@ let WSServer = ws.createServer(function (conn) {
     if (str[0] === str[str.length - 1] && str[0] === '"')
     { //To reduce risk of 'eval'
       let obj = JSON.parse(eval(str));
+      console.log('WS Obj:',obj);
       if (obj.cmd) {
         let wsc = new WsCommands(WSServer.connections);
         if (wsc[obj.cmd] && typeof wsc[obj.cmd] === 'function') {

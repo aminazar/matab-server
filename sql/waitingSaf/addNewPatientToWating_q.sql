@@ -1,0 +1,1 @@
+insert into waiting_q(uid,pid,page_num,note_num,priority) values (${uid},${pid},${page_num},${note_num},(select coalesce((select max(priority) as pr from waiting_q where uid=${uid},0)+1)));
