@@ -94,7 +94,7 @@ router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Do
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveScans',false,['user.uid','params.pid','files','body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 //WatingSaf API
-router.put()
+router.put('/waitingSaf',apiResponse('WaitingSaf','addToSaf',false,['body']));
 
 
 module.exports = router;

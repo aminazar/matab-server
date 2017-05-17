@@ -1,4 +1,5 @@
 create table waiting_q(
+    wsid serial not null primary key,
 	uid integer not null,
 	pid integer not null,
 	page_num integer not null,
