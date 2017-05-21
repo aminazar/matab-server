@@ -1,9 +1,13 @@
-insert into waiting_q(did,pid,page_num,note_num,priority)
+insert into waiting_q(did,pid,page_num,note_num,priority,waite_start_time,display_name,firstname,surname)
 values
 (
   ${did},
   ${pid},
   ${page_num},
   ${note_num},
-  (select coalesce((select max(priority) as pr from waiting_q where did=${did}),0)+1)
+  (select coalesce((select max(priority) as pr from waiting_q where did=${did}),0)+1),
+  ${waite_start_time},
+  ${display_name},
+  ${firstname},
+  ${surname}
 );

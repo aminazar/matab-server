@@ -95,7 +95,7 @@ router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveSca
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 //WatingSaf API
 router.put('/waitingSaf',apiResponse('WaitingSaf','addToSaf',false,['body']));
-router.get('/waitingSaf', apiResponse('waitingSaf', 'select', false));
+router.get('/waitingSaf', apiResponse('WaitingSaf', 'getWaitings', false));
 
 
 module.exports = router;
