@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ff53961c-9b16-4e8e-b05b-4e075e75cfc0" name="Default" comment="add some code to wating model and change wating_q table">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/waitingSaf.model.js" afterPath="$PROJECT_DIR$/lib/waitingSaf.model.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.js" afterPath="$PROJECT_DIR$/routes/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/waitingSaf/addNewPatientToWating_q.sql" afterPath="$PROJECT_DIR$/sql/waitingSaf/addNewPatientToWating_q.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql/waitingSaf/create.sql" afterPath="$PROJECT_DIR$/sql/waitingSaf/create.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -60,11 +64,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addNewPatientToWating_q.sql" pinned="false" current-in-tab="false">
+      <file leaf-file-name="addNewPatientToWating_q.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sql/waitingSaf/addNewPatientToWating_q.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
               <caret line="12" column="2" lean-forward="true" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql/patients/create.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql/waitingSaf/create.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="waitingSaf.model.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/waitingSaf.model.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.model.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/user.model.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2255">
+              <caret line="140" column="10" lean-forward="true" selection-start-line="140" selection-start-column="10" selection-end-line="140" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -116,11 +160,6 @@
         <entry key="$PROJECT_DIR$" value="saf" />
       </map>
     </option>
-  </component>
-  <component name="GithubProjectSettings">
-    <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="master" />
-    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="aminazar" />
-    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="matab-server" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -370,7 +409,11 @@
       <workItem from="1494394364589" duration="3923000" />
       <workItem from="1494910740438" duration="8959000" />
       <workItem from="1494998675028" duration="19850000" />
+<<<<<<< HEAD
       <workItem from="1495031470500" duration="16572000" />
+=======
+      <workItem from="1495031470500" duration="14000000" />
+>>>>>>> parent of 6b89e18... add some code to wating model and change wating_q table
     </task>
     <task id="LOCAL-00001" summary="Adding client">
       <created>1491213868610</created>
@@ -477,6 +520,7 @@
       <option name="project" value="LOCAL" />
       <updated>1495032516825</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00016" summary="add some code to wating model and change wating_q table">
       <created>1495367223007</created>
       <option name="number" value="00016" />
@@ -496,10 +540,17 @@
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="154195000" />
+=======
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="151623000" />
+>>>>>>> parent of 6b89e18... add some code to wating model and change wating_q table
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1044" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964718" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -509,7 +560,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32540542" sideWeight="0.4986215" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38162163" sideWeight="0.48759353" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40864864" sideWeight="0.48759353" order="10" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40864864" sideWeight="0.48759353" order="10" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of 6b89e18... add some code to wating model and change wating_q table
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15903106" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="MaxCompute Job Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964718" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -891,10 +946,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sql/patients/create.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sql/users/create.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="144" column="28" lean-forward="true" selection-start-line="144" selection-start-column="28" selection-end-line="144" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -931,14 +1002,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql/patients/create.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sql/waitingSaf/addNewPatientToWating_q.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -947,6 +1010,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/sql/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
@@ -963,5 +1027,7 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> parent of 6b89e18... add some code to wating model and change wating_q table
   </component>
 </project>
