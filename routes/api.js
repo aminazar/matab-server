@@ -62,10 +62,10 @@ router.get('/', function(req, res) {
   res.send('respond with a resource');
 });
 //Login API
-router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username','user.is_doctor','user.display_name']));
+router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username','user.is_doctor','user.display_name','user.uid']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
 router.get('/logout', (req,res)=>{req.logout();res.sendStatus(200)});
-router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username','user.is_doctor','user.display_name']));
+router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username','user.is_doctor','user.display_name','user.uid']));
 //User API
 router.put('/user', apiResponse('User', 'insert', true, ['body']));
 router.get('/user', apiResponse('User', 'select', true));
@@ -83,8 +83,10 @@ router.put('/visit', apiResponse('Visit', 'saveData', false, ['body']));
 router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
 router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits',false));
 router.get('/my-visit',apiResponse('Visit', 'myVisit',false,['user.uid']));
+
 router.put('/end-visit/:pid', apiResponse('Visit', 'endVisit', false, ['params.pid','user.uid']));
-router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid','params.uid']))
+router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid','params.uid']));
+
 router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body','params.vid']));
 router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
 //Document API
@@ -93,9 +95,11 @@ router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['p
 router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file','app.locals.WSServer']));
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveScans',false,['user.uid','params.pid','files','body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
-//WatingSaf API
+//WaitingSaf API
 router.put('/waitingSaf',apiResponse('WaitingSaf','addToSaf',false,['body']));
 router.get('/waitingSaf', apiResponse('WaitingSaf', 'getWaitings', false));
+router.get('/waitingSaf/:pid/:did', apiResponse('WaitingSaf', 'getNewAddedPatientWaiting', false, ['params.pid','params.did']));
+router.delete('/waitingSaf/:pid', apiResponse('WaitingSaf', 'deleteFromSaf', false, ['params.pid']));
 
 
 module.exports = router;

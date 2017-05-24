@@ -57,5 +57,7 @@ module.exports = {
   waiting_q: {
     create: sql('waitingSaf/create.sql'),
     addNewPatientToWating_q: sql('waitingSaf/addNewPatientToWating_q.sql'),
+    deleteVisitingPatientFromWaiting_q: sql('waitingSaf/deleteVisitingPatientFromWaiting_q.sql'),
+    getNewPatientWaitingById: sql('waitingSaf/getNewPatientWaitingById.sql'),
   },
 };
