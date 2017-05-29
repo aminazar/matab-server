@@ -100,6 +100,7 @@ router.put('/waitingSaf',apiResponse('WaitingSaf','addToSaf',false,['body']));
 router.get('/waitingSaf', apiResponse('WaitingSaf', 'getWaitings', false));
 router.get('/waitingSaf/:pid/:did', apiResponse('WaitingSaf', 'getNewAddedPatientWaiting', false, ['params.pid','params.did']));
 router.delete('/waitingSaf/:pid', apiResponse('WaitingSaf', 'deleteFromSaf', false, ['params.pid']));
+// router.delete('/waitingSaf/:visit_date', apiResponse('WaitingSaf', 'deleteLastDayWaitings', false, ['params.current_date']));
 
 
 module.exports = router;

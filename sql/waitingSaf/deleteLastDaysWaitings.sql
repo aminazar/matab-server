@@ -1,0 +1,1 @@
+--delete from waiting_q where visit_date < current_date
