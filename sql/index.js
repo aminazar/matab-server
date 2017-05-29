@@ -109,7 +109,6 @@ let tablesWithSqlCreatedByHelpers = [
     name: 'waiting_q',
     update: true,
     select: true,
-    delete: true,
   },
 
 ];

@@ -1,0 +1,1 @@
+select * from waiting_q where pid=${pid} and did=${did}
