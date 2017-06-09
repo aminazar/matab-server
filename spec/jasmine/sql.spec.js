@@ -16,7 +16,7 @@ describe("SQL library",()=>{
 
     let testAllRawSQLsAreInWrappedSQLs = (query,table) => it(`should wrap raw SQL for table table '${table}' and query '${query}'`, () => {
         expect(sql[table][query]).toBeDefined();
-        expect(sql.test[table][query]).toBeDefined();
+        expect(sql.test[table ][query]).toBeDefined();
       });
 
     for (let t in raw)
