@@ -38,6 +38,7 @@ for (let table in rawSql) {
 
         wrappedSQL[table][query] = (data) => {
             return ((table === 'db' ? env.initDb : env.db)[usingFunction(query)])(rawSql[table][query], data);
+
         };
         wrappedSQL.test[table][query] = (data) => {
             return (env.testDb[usingFunction(query)])(rawSql[table][query], data);
@@ -114,7 +115,7 @@ let tablesWithSqlCreatedByHelpers = [
         idColumn: 'did',
     },
     {
-        name: 'waiting_q',
+        name: 'waiting',
         update: true,
         select: true,
         delete: true,

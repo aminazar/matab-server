@@ -29,7 +29,7 @@ function prodTablesCreate() {
       'visits',
       'documents',
       'shares',
-      'waiting_q'
+      'waiting'
     ].reduce((x, y) => createOrExist(x).then(createOrExist(y)))
       .then(resolve())
       .catch(err => reject(err));
@@ -56,7 +56,6 @@ function adminRowCreate() {
 }
 
 function setupMainDatabase(msg) {
-  console.log(msg);
   prodTablesCreate()
     .then(() => {
       return adminRowCreate();
@@ -75,6 +74,8 @@ function setupMainDatabase(msg) {
 }
 
 if (env.isDev) {
+
+
   sql.db.create({dbName: env.db_name})
     .then(res => {
       setupMainDatabase(res);
