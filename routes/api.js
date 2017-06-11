@@ -93,7 +93,8 @@ router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['p
 router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file','app.locals.WSServer']));
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveScans',false,['user.uid','params.pid','files','body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
-//WatingSaf API
+
+//WaitingQueue API
 router.put('/waiting',apiResponse('Waiting','addToSaf',false,['body']));
 router.get('/get-waiting-list', apiResponse('Waiting', 'getWaitingList', false));
 
