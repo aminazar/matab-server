@@ -79,12 +79,12 @@ router.get('/patient-full-data/:pid', apiResponse('Patient', 'select', false, ['
 router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 'params.pid']));
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API
-router.put('/visit', apiResponse('Visit', 'saveData', false, ['body']));
 router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
 router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits',false));
 router.get('/my-visit',apiResponse('Visit', 'myVisit',false,['user.uid']));
 router.put('/end-visit/:pid', apiResponse('Visit', 'endVisit', false, ['params.pid','user.uid']));
-router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid','params.uid']))
+router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid','params.uid']));
+router.post('/refer-visit/', apiResponse('Visit', 'referVisit', false, ['body']));
 router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body','params.vid']));
 router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
 //Document API
@@ -95,7 +95,7 @@ router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveSca
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 
 //WaitingQueue API
-router.put('/waiting',apiResponse('Waiting','addToSaf',false,['body']));
+router.put('/waiting',apiResponse('Waiting','addToWaiting',false,['body']));
 router.get('/get-waiting-list', apiResponse('Waiting', 'getWaitingList', false));
 
 

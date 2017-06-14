@@ -42,6 +42,7 @@ module.exports = {
     getActiveVisits: sql('visits/getActiveVisits.sql'),
     endVisit: sql('visits/endVisit.sql'),
     myTodayVisits: sql('visits/myTodayVisits.sql'),
+    referVisit: sql('visits/referVisit.sql'),
   },
 
   documents: {
@@ -56,7 +57,8 @@ module.exports = {
   },
   waiting: {
     create: sql('waiting/create.sql'),
-    addNewPatientToWaiting: sql('waiting/addNewPatientToWaiting.sql'),
+    addToWaiting: sql('waiting/addToWaiting.sql'),
     getWaitingList: sql('waiting/getWaitingList.sql'),
+    getLastWaiting: sql('waiting/getLastWaiting.sql'),
   },
 };

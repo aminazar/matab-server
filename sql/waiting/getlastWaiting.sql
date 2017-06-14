@@ -14,7 +14,7 @@ join
 on
     patients.pid = waiting.pid
 
-order by waiting.wait_start_time desc;
+order by waiting.wait_start_time desc limit 1;
 
 
 
