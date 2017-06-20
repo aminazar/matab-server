@@ -1,8 +1,12 @@
 
 select
-    waiting.pid, patients.firstname, patients.surname, users.uid, users.display_name as doctor, waiting.priority, waiting.wait_start_time
-as
-    data_source
+    waiting.pid, patients.firstname,
+    patients.surname,
+    users.uid as did,
+    users.display_name as doctor,
+    waiting.priority,
+    waiting.wait_start_time,
+    waiting.paper_id
 from
     waiting
 join

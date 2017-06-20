@@ -21,7 +21,7 @@ values
 );
 
 
-  IF not exists (select 1 from visits where did = ${did})  THEN
+  IF not exists (select * from visits where did = ${did} and end_time is null limit 1)  THEN
 	insert into visits(did, pid, paper_id)
     values (
      ${did},

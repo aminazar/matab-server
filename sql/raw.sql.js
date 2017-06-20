@@ -43,6 +43,7 @@ module.exports = {
     endVisit: sql('visits/endVisit.sql'),
     myTodayVisits: sql('visits/myTodayVisits.sql'),
     referVisit: sql('visits/referVisit.sql'),
+    acceptNextVisit: sql('visits/acceptNextVisit.sql'),
   },
 
   documents: {
