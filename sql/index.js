@@ -45,7 +45,6 @@ for (let table in rawSql) {
         };
     }
 }
-
 /*
  * Additional SQLs created by helpers go here
  */
