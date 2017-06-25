@@ -7,7 +7,8 @@ select
     users.display_name as doctor,
     waiting.priority,
     waiting.wait_start_time,
-    waiting.paper_id
+    waiting.paper_id,
+    waiting.vid
 from
     waiting
 join
