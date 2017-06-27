@@ -3,12 +3,23 @@
     "initDb":   "postgres",
     "database": "matab",
     "pgConnection": "postgres://postgres:13311231@localhost:5432/",
-    "uploadPath": "public/documents"
+    "uploadPath": "public/documents",
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379,
+      "password": ""
+    }
   },
   "production": {
     "initDb":   "postgres",
     "database": "matab",
     "pgConnection": "postgres://postgres@localhost:5432/",
-    "uploadPath": "public/documents"
+    "uploadPath": "public/documents",
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379,
+      "password": ""
+    }
   }
+
 }

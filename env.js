@@ -49,4 +49,5 @@ module.exports = {
   isProd: isProd,
   isDev: isDev,
   filePath: path.join(__dirname, config.uploadPath),
+  _env: env
 };

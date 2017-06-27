@@ -1,7 +1,7 @@
 const request = require("request");
 const base_url = "http://localhost:3000/api/";
 const test_query = '?test=tEsT';
-const lib = require('../lib');
+const lib = require('../app/lib');
 const sql = require('../sql');
 let req = request.defaults({jar: true});//enabling cookies
 

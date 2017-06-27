@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node server.js",
     "test": "jasmine;jasmine-node --verbose server_spec --forceexit --captureExceptions",
     "model_test": "jasmine",
     "postinstall": "node configure.js"
@@ -27,7 +27,10 @@
     "pg-monitor": "^0.7.1",
     "pg-promise": "^5.5.4",
     "request": "^2.79.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "socket.io": "2.0.3",
+    "socket.io-redis": "5.1.0"
+
   },
   "devDependencies": {
     "jasmine": "^2.5.3",

@@ -1,7 +1,7 @@
 /**
  * Created by Amin on 04/02/2017.
  */
-const SqlTable = require('../../lib/sqlTable.model');
+const SqlTable = require('../../app/lib/sqlTable.model');
 const sql  = require('../../sql');
 
 describe('SqlTable abstract class',()=>{

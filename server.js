@@ -9,9 +9,16 @@ let index = require('./routes/index');
 let api = require('./routes/api');
 let passport = require('passport');
 let PassLocal = require('passport-local');
-let session = require('express-session');
+let session = require('./session');
 let lib = require('./lib');
+const redis = require('redis').createClient;
+const adapter = require('socket.io-redis');
+const env = require('./env');
+const config = require('./config.json')[env._env];
+
+
 let app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,22 +31,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session);
 
-//session:
-let sess = {
-    secret: 'HosKhedIDA',
-    cookie: {},
-    resave: true,
-    saveUninitialized: true,
-
-};
-
-if (app.get('env') === 'production') {
-    app.set('trust proxy', 1); // trust first proxy
-    sess.cookie.secure = true; // serve secure cookies
-}
-
-app.use(session(sess));
 //Passport:
 app.use(passport.initialize());
 app.use(passport.session());
@@ -73,4 +66,59 @@ app.use(function (err, req, res, next) {
     console.log(err);
 });
 
-module.exports = app;
+// Create an IO Server instance
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+io.set('transports', ['websocket']);
+let pubClient = redis(config.redis.port, config.redis.host, {
+    auth_pass: config.redis.password
+});
+let subClient = redis(config.redis.port, config.redis.host, {
+    return_buffers: true,
+    auth_pass: config.redis.password
+});
+io.adapter(adapter({
+    pubClient,
+    subClient
+}));
+io.use((socket, next) => {
+    session(socket.request, {}, next);
+});
+require('./socket')(io, app);
+
+
+/**
+ * Get port from environment and store in Express.
+ */
+let port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+http.listen(app.get('port'), () => {
+    console.log('server Running on Port: ', app.get('port'));
+});
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    let port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+

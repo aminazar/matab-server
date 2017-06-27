@@ -3,7 +3,7 @@
  */
 const env = require('./env');
 const sql = require('./sql');
-const lib = require('./lib');
+const lib = require('./app/lib');
 const User = lib.User;
 
 function dbTestCreate() {
@@ -84,3 +84,5 @@ if (env.isDev) {
       setupMainDatabase(err.message);
     });
 }
+
+
