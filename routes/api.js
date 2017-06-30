@@ -6,72 +6,82 @@ const multer = require('multer');
 const env = require('../env');
 const moment = require('moment');
 const storage = multer.diskStorage({
-  destination: env.filePath + '/' + moment().format('YYMMDD'),
-  filename: (req,file,cb) => {
-    cb(null,[moment().format('HHmmssSSS'),req.params.username||req.user.username,file.originalname].join('|'));
-  }
+    destination: env.filePath + '/' + moment().format('YYMMDD'),
+    filename: (req, file, cb) => {
+        cb(null, [moment().format('HHmmssSSS'), req.params.username || req.user.username, file.originalname].join('|'));
+    }
 });
 const upload = multer({storage: storage});
 
-function apiResponse(className, functionName, adminOnly=false, reqFuncs=[]){
-  let args = Array.prototype.slice.call(arguments, 4);
-  let deepFind = function(obj, pathStr){
-    let path = pathStr.split('.');
-    let len=path.length;
-    for (let i=0; i<len; i++){
-      if(typeof obj === 'undefined') {
-        let err = new Error(`Bad request: request.${pathStr} is not found at '${path[i]}'`);
-        err.status = 400;
-        throw(err);
-      }
-      obj = obj[path[i]];
-    }
-    return obj;
-  };
-  return(function(req, res) {
-    let user = req.user ? req.user.username : req.user;
-    req.test = lib.helpers.isTestReq(req);
-    if(adminOnly && !lib.helpers.adminCheck(user)) {
-      res.status(403)
-        .send('Only admin can do this.');
-    }
-    else {
-      let dynamicArgs = [];
-      for(let i in reqFuncs)
-        dynamicArgs.push((typeof reqFuncs[i]==='function') ? reqFuncs[i](req) : deepFind(req,reqFuncs[i]));
+function apiResponse(className, functionName, adminOnly = false, reqFuncs = []) {
 
-      let allArgs = dynamicArgs.concat(args);
-      lib[className].test = req.test;
-      let isStaticFunction = typeof lib[className][functionName] === 'function';
-      let model = isStaticFunction ? lib[className] : new lib[className](req.test);
-      model[functionName].apply(isStaticFunction?null:model, allArgs)
-        .then(data=> {
-          res.status(200)
-            .json(data);
-        })
-        .catch(err=> {
-          console.log(`${className}/${functionName}: `, env.isProd ? err.message : err);
-          res.status(err.status||500)
-            .send(err.message || err);
-        });
-    }
-  });
+    let args = Array.prototype.slice.call(arguments, 4);
+    let deepFind = function (obj, pathStr) {
+        let path = pathStr.split('.');
+        let len = path.length;
+        for (let i = 0; i < len; i++) {
+            if (typeof obj === 'undefined') {
+                let err = new Error(`Bad request: request.${pathStr} is not found at '${path[i]}'`);
+                err.status = 400;
+                throw(err);
+            }
+            obj = obj[path[i]];
+        }
+        return obj;
+    };
+    return (function (req, res) {
+
+        let user = req.user ? req.user.username : req.user;
+
+        req.test = lib.helpers.isTestReq(req);
+        if (adminOnly && !lib.helpers.adminCheck(user)) {
+            res.status(403)
+                .send('Only admin can do this.');
+        }
+        else {
+            let dynamicArgs = [];
+
+            for (let i in reqFuncs)
+                dynamicArgs.push((typeof reqFuncs[i] === 'function') ? reqFuncs[i](req) : deepFind(req, reqFuncs[i]));
+
+
+            let allArgs = dynamicArgs.concat(args);
+            lib[className].test = req.test;
+            let isStaticFunction = typeof lib[className][functionName] === 'function';
+            let model = isStaticFunction ? lib[className] : new lib[className](req.test);
+            model[functionName].apply(isStaticFunction ? null : model, allArgs)
+                .then(data => {
+                    res.status(200)
+                        .json(data);
+                })
+                .catch(err => {
+                    console.log(`${className}/${functionName}: `, env.isProd ? err.message : err);
+                    res.status(err.status || 500)
+                        .send(err.message || err);
+                });
+        }
+    });
 }
 
-router.get('/', function(req, res) {
-  res.send('respond with a resource');
+router.get('/', function (req, res) {
+    res.send('respond with a resource');
 });
+
+// todo: apis are note secure... req.isAuthenticated must be added to following router actions
 //Login API
-router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username','user.is_doctor','user.display_name']));
+router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
-router.get('/logout', (req,res)=>{req.logout();res.sendStatus(200)});
-router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username','user.is_doctor','user.display_name']));
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.sendStatus(200)
+});
+router.get('/validUser', apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name']));
 //User API
 router.put('/user', apiResponse('User', 'insert', true, ['body']));
 router.get('/user', apiResponse('User', 'select', true));
-router.post('/user/:uid', apiResponse('User', 'update', true, ['params.uid','body']));
+router.post('/user/:uid', apiResponse('User', 'update', true, ['params.uid', 'body']));
 router.delete('/user/:uid', apiResponse('User', 'delete', true, ['params.uid']));
-router.get('/doctors', apiResponse('User', 'select', false, [()=>true]));
+router.get('/doctors', apiResponse('User', 'select', false, [() => true]));
 //Patient API
 router.put('/patient', apiResponse('Patient', 'saveData', false, ['body']));
 router.get('/patient', apiResponse('Patient', 'selectId', false));
@@ -80,22 +90,22 @@ router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API
 router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
-router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits',false));
-router.get('/my-visit',apiResponse('Visit', 'myVisit',false,['user.uid']));
-router.put('/end-visit/:pid', apiResponse('Visit', 'endVisit', false, ['params.pid','user.uid']));
-router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid','params.uid']));
+router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits', false));
+router.get('/my-visit', apiResponse('Visit', 'myVisit', false, ['user.uid']));
+router.put('/end-visit/:pid', apiResponse('Visit', 'endVisit', false, ['params.pid', 'user.uid']));
+router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid', 'params.uid']));
 router.post('/refer-visit/', apiResponse('Visit', 'referVisit', false, ['body']));
-router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body','params.vid']));
+router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body', 'params.vid']));
 router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
 //Document API
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
-router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username','file','app.locals.WSServer']));
-router.post('/scans/:pid', upload.array('file'), apiResponse('Document','saveScans',false,['user.uid','params.pid','files','body.description']));
+router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username', 'file', 'app.locals.WSServer']));
+router.post('/scans/:pid', upload.array('file'), apiResponse('Document', 'saveScans', false, ['user.uid', 'params.pid', 'files', 'body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 
 //WaitingQueue API
-router.put('/waiting',apiResponse('Waiting','addToWaiting',false,['body']));
+router.put('/waiting', apiResponse('Waiting', 'addToWaiting', false, ['body']));
 router.get('/get-waiting-list', apiResponse('Waiting', 'getWaitingList', false));
 
 

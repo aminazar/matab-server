@@ -5,17 +5,10 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-let index = require('./routes/index');
-let api = require('./routes/api');
-let passport = require('passport');
-let PassLocal = require('passport-local');
-let session = require('./session');
-let lib = require('./lib');
-const redis = require('redis').createClient;
-const adapter = require('socket.io-redis');
-const env = require('./env');
-const config = require('./config.json')[env._env];
-
+const sessionConfig = require('./session');
+const socketConfig = require('./socket');
+const passportConfig = require('./passport');
+const routConfig = require('./routes');
 
 let app = express();
 
@@ -31,61 +24,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session);
 
-//Passport:
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser(lib.User.serialize);
-passport.deserializeUser(lib.User.deserialize);
-passport.use(new PassLocal(
-    {
-        passReqToCallback: true,
-    },
-    lib.User.passportLocalStrategy
-));
+sessionConfig.setup(app);
+passportConfig.setup(app);
+routConfig.setup(app);
 
-app.use('/', index);
-app.use('/api', api);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    let err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-    let jsonError = req.app.get('env') === 'development' ? {
-        Message: err.message,
-        Stack: err.stack,
-    } : {Message: err.message};
-
-    res.status(err.status || 500).json(jsonError);
-    console.log(err);
-});
 
 // Create an IO Server instance
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
-io.set('transports', ['websocket']);
-let pubClient = redis(config.redis.port, config.redis.host, {
-    auth_pass: config.redis.password
-});
-let subClient = redis(config.redis.port, config.redis.host, {
-    return_buffers: true,
-    auth_pass: config.redis.password
-});
-io.adapter(adapter({
-    pubClient,
-    subClient
-}));
-io.use((socket, next) => {
-    session(socket.request, {}, next);
-});
-require('./socket')(io, app);
-
+socketConfig.setup(http);
 
 /**
  * Get port from environment and store in Express.
