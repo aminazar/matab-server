@@ -12,7 +12,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.2",
     "cli-color": "^1.1.0",
-    "connect-redis": "3.3.0",
+    "connect-redis": "^3.3.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
@@ -28,8 +28,8 @@
     "pg-promise": "^5.5.4",
     "request": "^2.79.0",
     "serve-favicon": "~2.3.0",
-    "socket.io": "2.0.3",
-    "socket.io.session": "1.0.13"
+    "socket.io": "^2.0.3",
+    "socket.io.session": "^1.0.13"
   },
   "devDependencies": {
     "jasmine": "^2.5.3",
