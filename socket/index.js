@@ -1,6 +1,7 @@
 'use strict';
 const sessionConfig = require('../session');
 var socketIOSession = require("socket.io.session");
+const  socketRoutes = require("./socketRoutes");
 
 
 let setup = http => {
@@ -14,19 +15,8 @@ let setup = http => {
     //parse the "/" namespace
     io.use(socketSession.parser);
 
+    socketRoutes.setup(io , socketSession.parser)
 
-    var chat = io.on('connection', socket => {
-
-        // console.log(socket.session);
-
-        socket.on('send-message', (message) => {
-            console.log('socket message ===> ', message);
-        });
-
-    });
-
-
-    chat.use(socketSession.parser);
 }
 
 module.exports = {

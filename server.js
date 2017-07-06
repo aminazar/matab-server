@@ -5,10 +5,10 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-const sessionConfig = require('./session');
-const socketConfig = require('./socket');
-const passportConfig = require('./passport');
-const routConfig = require('./routes');
+const session = require('./session');
+const socket = require('./socket');
+const passport = require('./passport');
+const route = require('./routes');
 
 let app = express();
 
@@ -25,14 +25,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-sessionConfig.setup(app);
-passportConfig.setup(app);
-routConfig.setup(app);
+session.setup(app);
+passport.setup(app);
+route.setup(app);
 
 
 // Create an IO Server instance
 const http = require('http').Server(app);
-socketConfig.setup(http);
+socket.setup(http);
 
 /**
  * Get port from environment and store in Express.
