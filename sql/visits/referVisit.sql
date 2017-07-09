@@ -1,7 +1,6 @@
 do $$
 declare
          rec RECORD;
-         new_visit_id integer;
 BEGIN
 
 if exists (select * from visits where did = ${to_did} and end_time is null) then
@@ -16,7 +15,7 @@ if exists (select * from visits where did = ${to_did} and end_time is null) then
         --update did and priority in order to put patient (which already has priority = 0) on top off all other patient of new doctor
         update waiting
         set
-            (did, priority) = (${to_did}, 1)
+            (did, priority, vid) = (${to_did}, 1, null)
         where
             pid = ${pid} and did = ${from_did};
 
@@ -25,18 +24,16 @@ if exists (select * from visits where did = ${to_did} and end_time is null) then
 
 else
 
-    new_visit_id = (select vid from visits where pid = ${pid} and did = ${from_did} and end_time is null);
-
     update visits
     set
         (did, start_time) = (${to_did},current_timestamp)
     where
-        vid = new_visit_id;
+        vid = ${vid};
 
     -- current visit must be updated in waiting table, also
     update waiting
     set
-        (did, vid, priority)  = (${to_did}, new_visit_id, 0)
+        (did, vid, priority)  = (${to_did}, ${vid}, 0)
 
     where
         pid = ${pid} and did = ${from_did};
@@ -44,5 +41,3 @@ else
 end if;
 
 END $$;
-
-select ${from_did} as did;

@@ -9,38 +9,56 @@
  *
  */
 
+let userIO;
+let patientIO;
 
 let setup = (io, socketSessionParser) => {
 
-    let userIO = io.of('/user').on('connection', socket => {
 
-        console.log('===> user-socket-connected');
+    userIO = io.of('/user');
+    let userConnection = userIO.on('connection', socket => {
+
+        console.warn('===> user-socket-connected ', socket.session.passport.user.username);
 
         socket.on('req', (message) => {
             console.log('user socket message ===> ', message);
         });
 
     });
-    userIO.use(socketSessionParser);
+    userConnection.use(socketSessionParser);
 
-    let patientIO = io.of('/patient').on('connection', socket => {
+    patientIO = io.of('/patient');
+    let patientConnection = patientIO.on('connection', socket => {
 
 
-        console.log('===> patient-socket-connected');
+        console.warn('===> patient-socket-connected ', socket.session.passport.user.username);
 
         socket.on('req', (message) => {
             console.log('patient socket message ===> ', message);
 
-           socket.broadcast.emit('ans', message)
+            socket.broadcast.emit('ans', message)
         });
 
     });
-    patientIO.use(socketSessionParser);
+    patientConnection.use(socketSessionParser);
 
 
-}
+};
+
+let getUserIO = () =>{
+
+    return userIO;
+};
+
+let getPatientIO = () =>{
+
+    return patientIO;
+};
+
 
 module.exports = {
+    setup,
+    getUserIO,
+    getPatientIO
 
-    setup
-}
+};

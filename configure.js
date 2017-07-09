@@ -3,7 +3,7 @@
  */
 const env = require('./env');
 const sql = require('./sql');
-const lib = require('./app/lib');
+const lib = require('./lib');
 const User = lib.User;
 
 function dbTestCreate() {
