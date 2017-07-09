@@ -69,13 +69,13 @@ router.get('/', function (req, res) {
 
 // todo: apis are note secure... req.isAuthenticated must be added to following router actions
 //Login API
-router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name']));
+router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name', 'user.uid']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
 router.get('/logout', (req, res) => {
     req.logout();
     res.sendStatus(200)
 });
-router.get('/validUser', apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name']));
+router.get('/validUser', apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name', 'user.uid']));
 //User API
 router.put('/user', apiResponse('User', 'insert', true, ['body']));
 router.get('/user', apiResponse('User', 'select', true));
