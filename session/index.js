@@ -6,8 +6,10 @@ const redis = require('redis').createClient();
 
 let session_config = {
     secret: 'HosKhedIDA',
-    cookie: {},
-    resave: true,
+    cookie: {
+        maxAge: 14*24*3600*1000
+    },
+    resave: false,
     saveUninitialized: true,
 };
 

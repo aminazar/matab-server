@@ -31,3 +31,5 @@ BEGIN
      end loop;
 
 END $$;
+
+select vid  from visits where did = ${did} and end_time is null;
