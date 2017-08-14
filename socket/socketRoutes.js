@@ -60,5 +60,4 @@ module.exports = {
     setup,
     getUserIO,
     getPatientIO
-
 };

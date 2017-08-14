@@ -113,13 +113,6 @@ let tablesWithSqlCreatedByHelpers = [
         delete: true,
         idColumn: 'did',
     },
-    {
-        name: 'waiting',
-        update: true,
-        select: true,
-        delete: true,
-    },
-
 ];
 
 

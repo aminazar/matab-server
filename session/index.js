@@ -13,7 +13,7 @@ let session_config = {
     saveUninitialized: true,
 };
 
-var sessionStore = new RedisStore({
+let sessionStore = new RedisStore({
     "client": redis,
     "host": "127.0.0.1",
     "port": 6379
