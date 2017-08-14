@@ -76,7 +76,7 @@ router.get('/', function (req, res) {
     res.send('respond with a resource');
 });
 
-// todo: apis are note secure... req.isAuthenticated must be added to following router actions
+// todo: apis are not secure... req.isAuthenticated must be added to following router actions
 //Login API
 router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name', 'user.uid']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
@@ -98,7 +98,8 @@ router.get('/patient-full-data/:pid', apiResponse('Patient', 'select', false, ['
 router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 'params.pid']));
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API
-router.get('/visit/:vid', apiResponse('Visit', 'getVisit', false, ['user.uid']));
+router.get('/visits', apiResponse('Visit', 'getAllVisits', false, []));
+router.get('/visit/:vid', apiResponse('Visit', 'getVisit', false, ['params.vid']));
 router.put('/immediate-visit/:did/:pid/:paper_id', apiResponse('Visit', 'startImmediateVisit', false, ['user.uid','params.did','params.pid','body']));
 router.put('/waiting/:did/:pid/:paper_id', apiResponse('Visit','startWaiting', false, ['user.uid','params.did','params.pid','body']));
 router.put('/visit/:vid', apiResponse('Visit','startVisit', false, ['user.uid','params.vid']));
