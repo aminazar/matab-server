@@ -100,17 +100,17 @@ router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.
 //Visit API
 router.get('/visits', apiResponse('Visit', 'getAllVisits', false, []));
 router.get('/visit/:vid', apiResponse('Visit', 'getVisit', false, ['params.vid']));
-router.put('/immediate-visit/:did/:pid/:paper_id', apiResponse('Visit', 'startImmediateVisit', false, ['user.uid','params.did','params.pid','body']));
-router.put('/waiting/:did/:pid/:paper_id', apiResponse('Visit','startWaiting', false, ['user.uid','params.did','params.pid','body']));
-router.put('/visit/:vid', apiResponse('Visit','startVisit', false, ['user.uid','params.vid']));
-router.post('/queue/:vid/:did', apiResponse('Visit','changeQueue', false, ['user.uid','params.vid','params.did']));
-router.delete('/waiting/:vid', apiResponse('Visit','removeWaiting', false, ['user.uid','params.vid']));
-router.post('/refer/:vid/:did', apiResponse('Visit','refer', false, ['user.uid','params.vid','params.did']));
-router.post('/end-visit/:vid', apiResponse('Visit','endVisit', false, ['user.uid','params.vid']));
-router.post('/undo-visit/:vid', apiResponse('Visit','undoVisit', false, ['user.uid','params.vid']));
-router.post('/emgy-checked/:vid/:value',apiResponse('Visit','emgyChecked', false, ['user.uid','params.vid','params.value']));
-router.post('/vip-checked/:vid/:value',apiResponse('Visit','vipChecked', false, ['user.uid','params.vid','params.value']));
-router.post('/nocardio-checked/:vid/:value',apiResponse('Visit','nocardioChecked', false, ['user.uid','params.vid','params.value']));
+router.put('/immediate-visit/:did/:pid', apiResponse('Visit', 'startImmediateVisit', false, ['user.display_name','params.did','params.pid','body']));
+router.put('/waiting/:did/:pid', apiResponse('Visit','startWaiting', false, ['user.display_name','params.did','params.pid','body']));
+router.put('/visit/:vid', apiResponse('Visit','startVisit', false, ['user.display_name','params.vid']));
+router.post('/queue/:vid/:did', apiResponse('Visit','changeQueue', false, ['user.display_name','params.vid','params.did']));
+router.delete('/waiting/:vid', apiResponse('Visit','removeWaiting', false, ['user.display_name','params.vid']));
+router.post('/refer/:vid/:did', apiResponse('Visit','refer', false, ['user.uid','user.display_name','params.vid','params.did']));
+router.post('/end-visit/:vid', apiResponse('Visit','endVisit', false, ['user.uid','user.display_name','user.is_doctor','params.vid']));
+router.post('/undo-visit/:vid', apiResponse('Visit','undoVisit', false, ['user.display_name','params.vid']));
+router.post('/emgy-checked/:vid/:value',apiResponse('Visit','emgyChecked', false, ['user.uid','user.is_doctor','user.display_name','user.is_doctor','params.vid','params.value']));
+router.post('/vip-checked/:vid/:value',apiResponse('Visit','vipChecked', false, ['user.display_name','params.vid','params.value']));
+router.post('/nocardio-checked/:vid/:value',apiResponse('Visit','nocardioChecked', false, ['user.display_name','params.vid','params.value']));
 //Document API
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));

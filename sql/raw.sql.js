@@ -33,12 +33,17 @@ module.exports = {
     create: sql('patients/create.sql'),
     drop:   sql('patients/drop.sql'),
     selectId:sql('patients/selectId.sql'),
-    isVip:  sql('patients/isVip.sql'),
   },
 
   visits: {
     create: sql('visits/create.sql'),
     drop:   sql('visits/drop.sql'),
+    getAllVisitsToday: sql('visits/getAllVisitToday.sql'),
+    getVisit: sql('visits/getVisit.sql'),
+    currentPatientVisitsToday:sql('visits/currentPatientVisitToday.sql'),
+    currentDoctorVisitToday:sql('visits/currentDoctorVisitToday.sql'),
+    currentDoctorVisitTodayByWaiting:sql('visits/currentDoctorVisitTodayByWaiting.sql'),
+    checkReferralConditions: sql('visits/checkReferralConditions.sql'),
   },
 
   documents: {
