@@ -39,6 +39,9 @@ function apiResponse(className, functionName, adminOnly = false, reqFuncs = []) 
             res.status(403)
                 .send('Only admin can do this.');
         }
+        else if(functionName!=='saveHandscript' && !user) {
+            res.status(403).send('You need to login to do this.')
+        }
         else {
             let dynamicArgs = [];
 
