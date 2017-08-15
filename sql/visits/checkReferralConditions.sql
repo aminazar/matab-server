@@ -2,6 +2,10 @@ select
     *
 from
     visits
+join
+    patients
+on
+    visits.pid = patients.pid
 where
     did=${uid}
     and vid=${vid}
