@@ -102,6 +102,7 @@ module.exports = {
   sendNewVisitMessageToAllClients,
   sendDismissMessageToAllClients,
   sendReferMessageToAllClients,
+  sendMessage,
   storeNamespace: socketRoutes.saveNamespace,
   getNamespace: socketRoutes.isNamespaceExist,
   deleteNamespace: socketRoutes.deleteNamespace,

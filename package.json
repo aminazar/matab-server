@@ -12,6 +12,7 @@
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.0",
     "body-parser": "~1.15.2",
+    "child-process-promise": "^2.2.1",
     "cli-color": "^1.1.0",
     "connect-redis": "^3.3.0",
     "cookie-parser": "~1.4.3",

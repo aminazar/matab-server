@@ -50,6 +50,7 @@ module.exports = {
     create: sql('documents/create.sql'),
     drop: sql('documents/drop.sql'),
     getPatientsDocuments: sql('documents/getPatientsDocuments.sql'),
+    getPreviousDocument: sql('documents/getPreviousDocument.sql'),
   },
 
   shares: {
