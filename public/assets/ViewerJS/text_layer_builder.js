@@ -124,7 +124,7 @@ var TextLayerBuilder = (function TextLayerBuilderClosure() {
 
     /**
      * Renders the text layer.
-     * @param {number} timeout (optional) if specified, the rendering waiting
+     * @param {number} timeout (optional) if specified, the rendering waits
      *   for specified amount of ms.
      */
     render: function TextLayerBuilder_render(timeout) {

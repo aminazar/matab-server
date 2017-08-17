@@ -38,28 +38,17 @@ module.exports = {
   visits: {
     create: sql('visits/create.sql'),
     drop:   sql('visits/drop.sql'),
-    getVisitForPage: sql('visits/getVisitForPage.sql'),
-    getActiveVisits: sql('visits/getActiveVisits.sql'),
-    endVisit: sql('visits/endVisit.sql'),
-    myTodayVisits: sql('visits/myTodayVisits.sql'),
-    referVisit: sql('visits/referVisit.sql'),
-    acceptNextVisit: sql('visits/acceptNextVisit.sql'),
+    getAllVisitsToday: sql('visits/getAllVisitsToday.sql'),
+    getVisit: sql('visits/getVisit.sql'),
+    currentPatientVisitsToday:sql('visits/currentPatientVisitToday.sql'),
+    currentDoctorVisitToday:sql('visits/currentDoctorVisitToday.sql'),
+    currentDoctorVisitTodayByWaiting:sql('visits/currentDoctorVisitTodayByWaiting.sql'),
+    checkReferralConditions: sql('visits/checkReferralConditions.sql'),
   },
 
   documents: {
     create: sql('documents/create.sql'),
     drop: sql('documents/drop.sql'),
     getPatientsDocuments: sql('documents/getPatientsDocuments.sql'),
-  },
-
-  shares: {
-    create: sql('shares/create.sql'),
-    drop: sql('shares/drop.sql'),
-  },
-  waiting: {
-    create: sql('waiting/create.sql'),
-    addToWaiting: sql('waiting/addToWaiting.sql'),
-    getWaitingList: sql('waiting/getWaitingList.sql'),
-    getLastWaiting: sql('waiting/getLastWaiting.sql'),
   },
 };

@@ -1,7 +1,7 @@
 /**
  * Created by Amin on 01/02/2017.
  */
-const User = require('../../app/lib/user.model');
+const User = require('../../lib/user.model');
 const sql  = require('../../sql');
 
 describe("User model",()=>{

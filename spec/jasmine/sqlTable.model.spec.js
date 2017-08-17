@@ -1,7 +1,7 @@
 /**
  * Created by Amin on 04/02/2017.
  */
-const SqlTable = require('../../app/lib/sqlTable.model');
+const SqlTable = require('../../lib/sqlTable.model');
 const sql  = require('../../sql');
 
 describe('SqlTable abstract class',()=>{
@@ -22,16 +22,16 @@ describe('SqlTable abstract class',()=>{
     expect(test).toThrowError(TypeError,'Missing idMember in SqlTable class');
   });
 
-  it("should throw error on 'importData'",()=>{
-    let test = ()=>instance.importData();
-    expect(test).toThrowError(TypeError,"importData is not implemented");
-  });
-
-
-  it("should throw error on 'exportData'",()=>{
-    let test = ()=>instance.exportData();
-    expect(test).toThrowError(TypeError,"exportData is not implemented");
-  });
+  // it("should throw error on 'importData'",()=>{
+  //   let test = ()=>instance.importData();
+  //   expect(test).toThrowError(TypeError,"importData is not implemented");
+  // });
+  //
+  //
+  // it("should throw error on 'exportData'",()=>{
+  //   let test = ()=>instance.exportData();
+  //   expect(test).toThrowError(TypeError,"exportData is not implemented");
+  // });
 
   it("should call sql.users.get on load",()=>{
     instance.load({x:'y'}).then(()=>{}).catch(()=>{});

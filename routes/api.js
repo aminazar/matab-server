@@ -5,6 +5,7 @@ const passport = require('passport');
 const multer = require('multer');
 const env = require('../env');
 const moment = require('moment');
+const socket = require('../socket');
 const storage = multer.diskStorage({
     destination: env.filePath + '/' + moment().format('YYMMDD'),
     filename: (req, file, cb) => {
@@ -38,6 +39,9 @@ function apiResponse(className, functionName, adminOnly = false, reqFuncs = []) 
             res.status(403)
                 .send('Only admin can do this.');
         }
+        else if(functionName!=='saveHandscript' && !user) {
+            res.status(403).send('You need to login to do this.')
+        }
         else {
             let dynamicArgs = [];
 
@@ -51,8 +55,16 @@ function apiResponse(className, functionName, adminOnly = false, reqFuncs = []) 
             let model = isStaticFunction ? lib[className] : new lib[className](req.test);
             model[functionName].apply(isStaticFunction ? null : model, allArgs)
                 .then(data => {
-                    res.status(200)
+                    if(data.socketBroadcast) {
+                      socket.rawBroadcast(data.socketBroadcast.cmd, data.socketBroadcast.diff)
+                        .then(()=> {
+                          res.status(200).end();
+                        });
+                    }
+                    else {
+                      res.status(200)
                         .json(data);
+                    }
                 })
                 .catch(err => {
                     console.log(`${className}/${functionName}: `, env.isProd ? err.message : err);
@@ -67,7 +79,7 @@ router.get('/', function (req, res) {
     res.send('respond with a resource');
 });
 
-// todo: apis are note secure... req.isAuthenticated must be added to following router actions
+// todo: apis are not secure... req.isAuthenticated must be added to following router actions
 //Login API
 router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, ['user.username', 'user.is_doctor', 'user.display_name', 'user.uid']));
 router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
@@ -89,24 +101,25 @@ router.get('/patient-full-data/:pid', apiResponse('Patient', 'select', false, ['
 router.post('/patient/:pid', apiResponse('Patient', 'saveData', false, ['body', 'params.pid']));
 router.delete('/patient/:pid', apiResponse('Patient', 'delete', false, ['params.uid']));
 //Visit API
-router.get('/visit/:did', apiResponse('Visit', 'select', false, ['params']));
-router.get('/active-visits', apiResponse('Visit', 'selectActiveVisits', false));
-router.get('/my-visit', apiResponse('Visit', 'myVisit', false, ['user.uid']));
-router.put('/end-visit/:pid', apiResponse('Visit', 'endVisit', false, ['params.pid', 'user.uid']));
-router.post('/end-visit/:pid/:uid', apiResponse('Visit', 'endVisit', false, ['params.pid', 'params.uid']));
-router.post('/refer-visit/', apiResponse('Visit', 'referVisit', false, ['body']));
-router.post('/visit/:vid', apiResponse('Visit', 'saveData', false, ['body', 'params.vid']));
-router.delete('/visit/:vid', apiResponse('Visit', 'delete', false, ['params.vid']));
+router.get('/visits', apiResponse('Visit', 'getAllVisits', false, []));
+router.get('/visit/:vid', apiResponse('Visit', 'getVisit', false, ['params.vid']));
+router.put('/immediate-visit/:did/:pid', apiResponse('Visit', 'startImmediateVisit', false, ['user.display_name','params.did','params.pid','body']));
+router.put('/waiting/:did/:pid', apiResponse('Visit','startWaiting', false, ['user.display_name','params.did','params.pid','body']));
+router.put('/visit/:vid', apiResponse('Visit','startVisit', false, ['user.display_name','params.vid']));
+router.post('/queue/:vid/:did', apiResponse('Visit','changeQueue', false, ['user.display_name','params.vid','params.did']));
+router.delete('/waiting/:vid', apiResponse('Visit','removeWaiting', false, ['user.display_name','params.vid']));
+router.post('/refer/:vid/:did', apiResponse('Visit','refer', false, ['user.uid','user.display_name','params.vid','params.did']));
+router.post('/end-visit/:vid', apiResponse('Visit','endVisit', false, ['user.uid','user.display_name','user.is_doctor','params.vid']));
+router.post('/undo-visit/:vid', apiResponse('Visit','undoVisit', false, ['user.display_name','params.vid']));
+router.post('/emgy-checked/:vid/:value',apiResponse('Visit','emgyChecked', false, ['user.uid','user.is_doctor','user.display_name','user.is_doctor','params.vid','params.value']));
+router.post('/vip-checked/:vid/:value',apiResponse('Visit','vipChecked', false, ['user.display_name','params.vid','params.value']));
+router.post('/nocardio-checked/:vid/:value',apiResponse('Visit','nocardioChecked', false, ['user.display_name','params.vid','params.value']));
 //Document API
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
 router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username', 'file', 'app.locals.WSServer']));
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document', 'saveScans', false, ['user.uid', 'params.pid', 'files', 'body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
-
-//WaitingQueue API
-router.put('/waiting', apiResponse('Waiting', 'addToWaiting', false, ['body']));
-router.get('/get-waiting-list', apiResponse('Waiting', 'getWaitingList', false));
 
 
 module.exports = router;
