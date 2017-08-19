@@ -2,7 +2,7 @@
   "development": {
     "initDb":   "postgres",
     "database": "matab",
-    "pgConnection": "postgres://postgres:postgres@localhost:5433/",
+    "pgConnection": "postgres://postgres:postgres@localhost:5432/",
     "uploadPath": "public/documents",
     "redis": {
       "host": "127.0.0.1",
@@ -13,7 +13,7 @@
   "production": {
     "initDb":   "postgres",
     "database": "matab",
-    "pgConnection": "postgres://postgres@localhost:5433/",
+    "pgConnection": "postgres://postgres@localhost:5432/",
     "uploadPath": "public/documents",
     "redis": {
       "host": "127.0.0.1",
