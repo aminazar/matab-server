@@ -6,8 +6,9 @@ const multer = require('multer');
 const env = require('../env');
 const moment = require('moment');
 const socket = require('../socket');
+const path = require('path');
 const storage = multer.diskStorage({
-    destination: env.filePath + '\\' + moment().format('YYMMDD'),
+    destination: env.filePath + path.sep + moment().format('YYMMDD'),
     filename: (req, file, cb) => {
         cb(null, [moment().format('HHmmssSSS'), req.params.username || req.user.username, file.originalname].join('.'));
     }
