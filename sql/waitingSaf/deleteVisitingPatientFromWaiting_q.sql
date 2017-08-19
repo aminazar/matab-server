@@ -1,1 +1,0 @@
-delete from waiting_q where pid=${pid}

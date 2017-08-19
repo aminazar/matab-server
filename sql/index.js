@@ -64,9 +64,9 @@ genericUpdate = (tableName, idColumn, isTest) => {
     };
 };
 
-genericSelect = (tableName, isTest, whereColumns, nullColumns) => {
+genericSelect = (tableName, isTest, whereColumns=[], nullColumns=[], notNullColumns=[]) => {
     let db = chooseDb(tableName, isTest);
-    let whereClause = whereColumns ? whereColumns.map(col => col + (nullColumns.includes(col) ? ' is null' : '=${' + col + '}')).join(' and ') : '';
+    let whereClause = whereColumns ? whereColumns.concat(nullColumns).concat(notNullColumns).map(col => col + (nullColumns.includes(col) ? ' is null' : notNullColumns.includes(col)? ' is not null' : '=${' + col + '}')).join(' and ') : '';
     let query = `select * from ${tableName}${whereClause ? ' where ' + whereClause : ''}`;
     return (constraints) => {
         return db.any(query, constraints);
@@ -113,13 +113,6 @@ let tablesWithSqlCreatedByHelpers = [
         delete: true,
         idColumn: 'did',
     },
-    {
-        name: 'waiting',
-        update: true,
-        select: true,
-        delete: true,
-    },
-
 ];
 
 

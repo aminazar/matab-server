@@ -1,11 +1,13 @@
 'use strict';
 const sessionConfig = require('../session');
-var socketIOSession = require("socket.io.session");
+
+const socketIOSession = require("socket.io.session");
 const socketRoutes = require("./socketRoutes");
 const passportSocketIO = require('passport.socketio');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const redis = require('../redis');
+const helper = require('../lib/helpers');
 
 const NEW_MESSAGE = 'NEW_MESSAGE';
 const NEW_VISIT_CMD = 'newVisit';
@@ -26,7 +28,6 @@ let setup = http => {
   }));
   io.adapter(redis.redis_socket({host: 'localhost', port: 6379}));
   io.set('transports', ['websocket']);
-
   let socketSession = socketIOSession(sessionConfig.session_config);
 
   //parse the "/" namespace
@@ -48,21 +49,6 @@ function onAuthorizeFail(data, message, error, accept) {
   accept(null, false);
 }
 
-
-let sendNewVisitMessageToAllClients = (data) => {
-  return promise(NEW_VISIT_CMD, data[0], socketRoutes.getPatientIO())
-};
-
-let sendDismissMessageToAllClients = (data) => {
-  return promise(DISMISS_CMD, data, socketRoutes.getPatientIO());
-};
-
-let sendReferMessageToAllClients = (data) => {
-  console.log('=======>', data);
-
-  return promise(REFER_VISIT_CMD, data, socketRoutes.getPatientIO());
-};
-
 let sendMessage = (data, namespace) => {
   return new Promise((resolve, reject) => {
     socketRoutes.isNamespaceExist(namespace)
@@ -80,6 +66,22 @@ let sendMessage = (data, namespace) => {
   });
 };
 
+let sendNewVisitMessageToAllClients = (data) => {
+  return promise(helper.NEW_VISIT_CMD, data[0], socketRoutes.getPatientIO())
+};
+
+let sendUpdateVisitMessageToAllClients = (data) => {
+  return promise(helper.UPDATE_VISIT_CMD, data[0], socketRoutes.getPatientIO())
+};
+
+let sendDeleteVisitMessageToAllClients = (data) => {
+  return promise(helper.DELETE_VISIT_CMD, data[0], socketRoutes.getPatientIO())
+};
+
+let rawBroadcast = (cmd, data) => {
+  return promise(cmd, data, socketRoutes.getPatientIO())
+};
+
 let promise = (cmd, data, io) => {
 
   return new Promise((resolve, reject) => {
@@ -88,10 +90,9 @@ let promise = (cmd, data, io) => {
         cmd: cmd,
         msg: data
       };
-
+      console.warn(message);
       io.emit('ans', message);
       resolve(data);
-
     }, 0)
   })
 
@@ -100,8 +101,9 @@ let promise = (cmd, data, io) => {
 module.exports = {
   setup,
   sendNewVisitMessageToAllClients,
-  sendDismissMessageToAllClients,
-  sendReferMessageToAllClients,
+  sendUpdateVisitMessageToAllClients,
+  sendDeleteVisitMessageToAllClients,
+  rawBroadcast,
   sendMessage,
   storeNamespace: socketRoutes.saveNamespace,
   getNamespace: socketRoutes.isNamespaceExist,
