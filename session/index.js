@@ -2,7 +2,7 @@
 const env = require('../env');
 let session = require('express-session');
 let RedisStore = require('connect-redis')(session);
-const redis = require('redis').createClient();
+const redis = require('../redis').redis_client;
 
 let session_config = {
     secret: 'HosKhedIDA',

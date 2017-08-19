@@ -7,9 +7,9 @@ const env = require('../env');
 const moment = require('moment');
 const socket = require('../socket');
 const storage = multer.diskStorage({
-    destination: env.filePath + '/' + moment().format('YYMMDD'),
+    destination: env.filePath + '\\' + moment().format('YYMMDD'),
     filename: (req, file, cb) => {
-        cb(null, [moment().format('HHmmssSSS'), req.params.username || req.user.username, file.originalname].join('|'));
+        cb(null, [moment().format('HHmmssSSS'), req.params.username || req.user.username, file.originalname].join('.'));
     }
 });
 const upload = multer({storage: storage});
@@ -117,7 +117,7 @@ router.post('/nocardio-checked/:vid/:value',apiResponse('Visit','nocardioChecked
 //Document API
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
-router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username', 'file', 'app.locals.WSServer']));
+router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username', 'file', 'user.is_doctor']));
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document', 'saveScans', false, ['user.uid', 'params.pid', 'files', 'body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 
