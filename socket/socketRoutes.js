@@ -21,7 +21,7 @@ let setup = (io, socketSessionParser) => {
   userIO = io.of('/user');
   let userConnection = userIO.on('connection', socket => {
 
-    console.warn('===> user-socket-connected ', socket.session.passport.user.username);
+    // console.warn('===> user-socket-connected ', socket.session.passport.user.username);
 
     socket.on('req', (message) => {
       console.log('user socket message ===> ', message);
@@ -34,7 +34,7 @@ let setup = (io, socketSessionParser) => {
   let patientConnection = patientIO.on('connection', socket => {
 
 
-    console.warn('===> patient-socket-connected ', socket.session.passport.user.username);
+    // console.warn('===> patient-socket-connected ', socket.session.passport.user.username);
 
     socket.on('req', (message) => {
       console.log('patient socket message ===> ', message);
