@@ -2,6 +2,6 @@
 .idea/
 node_modules/
 /public/documents/
-/config.json
+config.json
 npm-debug.log
 
