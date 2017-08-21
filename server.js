@@ -29,7 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 session.setup(app);
 passport.setup(app);
 route.setup(app);
-backup.setup('../public/documents', '../public/backups/documents', 16);
+//Please enter access key of your dropbox app
+backup.setup('../public/documents', '../public/backups/documents', 'DROPBOX APP ACCESS KEY');
 
 
 // Create an IO Server instance

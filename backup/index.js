@@ -2,37 +2,56 @@
  * Created by ali71 on 20/08/2017.
  */
 const nodeScheduler = require('node-schedule');
-const ncp = require('ncp').ncp;
 const moment = require('moment');
 const exec = require('child-process-promise').exec;
+const AdmZip = require('adm-zip');
+const Dropbox = require('dropbox');
+const fs = require('fs');
 
 let sourceAddress = '../public/documents';
 let destinationAddress = '../public/backups/documents';
-let limitDepth = 10;
+let destinationFileName = '';
+let accessKey = '';
+let dpx = null;
 
-let setup = (source_addr, dest_addr, limit_depth) => {
+let setup = (source_addr, dest_addr, dropbox_access_key) => {
   sourceAddress = (source_addr) ? source_addr : sourceAddress;
   destinationAddress = (dest_addr) ? dest_addr : destinationAddress;
-  ncp.limit = (limit_depth) ? limit_depth : limitDepth;
 
+  accessKey = dropbox_access_key;
 
   fileBackup();
 };
 
 let fileBackup = () => {
   nodeScheduler.scheduleJob('* * * * 5', () => {
-    ncp(sourceAddress, destinationAddress + moment().format('YYYY-MM-DD'), (err) => {
-      if(err){
-        return console.error(err);
-      }
+    //Create archive file (.zip)
+    let zip = new AdmZip();
+    zip.addLocalFolder(sourceAddress);
 
-      console.log('Files backup is completed :)');
-    });
+    destinationFileName = moment.format('YYYY-MM-DD') + '.zip';
+
+    zip.writeZip(destinationAddress + '/' + destinationFileName);
+
+    fileUpload();
   });
 };
 
-let setupDropBox = () => {
+let fileUpload = () => {
+  dpx = new Dropbox({accessToken: accessKey});
 
+  fs.readFile(destinationAddress + '/' + destinationFileName, (err, data) => {
+    if(err)
+      console.log('Error. Cannot read zip file. ', err);
+
+    dpx.filesUpload({path: '/backups' + destinationFileName, contents: data})
+      .then(res => {
+        console.log(destinationFileName + ' is uploaded');
+      })
+      .catch(err => {
+        console.log('Error. Cannot upload zip file. ', err);
+      });
+  });
 };
 
 let dbBackup = () => {
