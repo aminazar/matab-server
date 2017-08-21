@@ -44,7 +44,7 @@ let fileUpload = () => {
     if(err)
       console.log('Error. Cannot read zip file. ', err);
 
-    dpx.filesUpload({path: '/backups' + destinationFileName, contents: data})
+    dpx.filesUpload({path: '/backups/' + destinationFileName, contents: data})
       .then(res => {
         console.log(destinationFileName + ' is uploaded');
       })
