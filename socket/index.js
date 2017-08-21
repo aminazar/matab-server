@@ -10,9 +10,6 @@ const redis = require('../redis');
 const helper = require('../lib/helpers');
 
 const NEW_MESSAGE = 'NEW_MESSAGE';
-const NEW_VISIT_CMD = 'newVisit';
-const DISMISS_CMD = 'dismiss';
-const REFER_VISIT_CMD = 'referVisit';
 let io;
 let setup = http => {
 
