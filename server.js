@@ -9,6 +9,7 @@ const session = require('./session');
 const socket = require('./socket');
 const passport = require('./passport');
 const route = require('./routes');
+const backup = require('./backup');
 
 let app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 session.setup(app);
 passport.setup(app);
 route.setup(app);
+backup.setup('../public/documents', '../public/backups/documents', '16L57ApNbTAAAAAAAAAACHXYvul6TGBlwvmg3aSMZODTPJgVquyipEOuIrXpyjlN');
 
 
 // Create an IO Server instance
