@@ -12,6 +12,6 @@ join
 on
     patients.pid = visits.pid
 where
-    end_time is null
+    start_time is not null
     and paper_id=${paper_id}
     and name=lower(${name})
