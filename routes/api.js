@@ -40,7 +40,7 @@ function apiResponse(className, functionName, adminOnly = false, reqFuncs = []) 
             res.status(403)
                 .send('Only admin can do this.');
         }
-        else if(functionName!=='saveHandscript' && !user) {
+        else if(['saveHandscript', 'validUser'].find(r => r===functionName) && !user) {
             res.status(403).send('You need to login to do this.')
         }
         else {
@@ -119,9 +119,10 @@ router.post('/nocardio-checked/:vid/:value',apiResponse('Visit','nocardioChecked
 router.get('/patient-documents/:pid', apiResponse('Document', 'select', false, ['params']));
 router.get('/visit-documents/:vid', apiResponse('Document', 'select', false, ['params']));
 router.post('/handwriting/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username', 'file']));
+router.post('/handwritingLate/:username', upload.single('userfile'), apiResponse('Document', 'saveHandscript', false, ['params.username', 'file', ()=>true]));
 router.post('/scans/:pid', upload.array('file'), apiResponse('Document', 'saveScans', false, ['user.uid', 'params.pid', 'files', 'body.description']));
 router.delete('/document/:did', apiResponse('Document', 'delete', false, ['params.did']));
 //Chat
-router.post('/chat/:namespace', apiResponse('Chat', 'sendMessage', false, ['user.uid', 'params.namespace', 'body']));
+router.post('/chat/:user_type/:username', apiResponse('Chat', 'sendMessage', false, ['user.uid','params.user_type','params.username','body']));
 
 module.exports = router;
