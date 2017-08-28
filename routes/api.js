@@ -40,7 +40,7 @@ function apiResponse(className, functionName, adminOnly = false, reqFuncs = []) 
             res.status(403)
                 .send('Only admin can do this.');
         }
-        else if(['saveHandscript', 'validUser'].find(r => r===functionName) && !user) {
+        else if(!(['saveHandscript', 'validUser'].find(r => r===functionName)) && !user) {
             res.status(403).send('You need to login to do this.')
         }
         else {
