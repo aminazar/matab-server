@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const redis = require('../redis');
 const helper = require('../lib/helpers');
 
-const NEW_MESSAGE = 'NEW_MESSAGE';
 let io;
 let setup = http => {
 
@@ -51,7 +50,7 @@ let sendMessage = (data, namespace) => {
     socketRoutes.isNamespaceExist(namespace)
       .then(ns => {
         if(ns)
-          promise(NEW_MESSAGE, data, ns)
+          promise(helper.NEW_MESSAGE, data, ns)
             .then(res => resolve(res))
             .catch(err => {
               console.log('Error when calling promise function: ', err);

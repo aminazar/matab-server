@@ -39,6 +39,7 @@ module.exports = {
     create: sql('visits/create.sql'),
     drop:   sql('visits/drop.sql'),
     getVisitForPage: sql('visits/getVisitForPage.sql'),
+    getVisitForPageLate: sql('visits/getVisitForPageLate.sql'),
     getAllVisitsToday: sql('visits/getAllVisitsToday.sql'),
     getVisit: sql('visits/getVisit.sql'),
     currentPatientVisitsToday:sql('visits/currentPatientVisitToday.sql'),
