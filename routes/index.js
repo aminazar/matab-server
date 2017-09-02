@@ -8,7 +8,7 @@ const api = require('./api');
 router.all("*", function (req, res, next) {
 
     /* Redirect http to https */
-   if (req.originalUrl.indexOf('api') === -1 && req.originalUrl.indexOf('documents') === -1) {
+   if (req.originalUrl.indexOf('api') === -1 && req.originalUrl.indexOf('socket.io')=== -1 && req.originalUrl.indexOf('documents') === -1) {
         console.log('[TRACE] Server 404 request: ' + req.originalUrl);
         var p = path.join(__dirname, '../public', 'index.html').replace(/\/routes\//, '/');
         res.status(200).sendFile(p);

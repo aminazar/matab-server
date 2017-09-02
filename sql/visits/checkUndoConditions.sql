@@ -9,3 +9,4 @@ on
 where
     visits.vid = ${vid}
     and start_time is not null
+    and start_waiting::date = current_date

@@ -34,7 +34,6 @@ backup.setup('../public/documents', '../public/backups/documents', '16L57ApNbTAA
 
 // Create an IO Server instance
 const http = require('http').Server(app);
-socket.setup(http);
 
 /**
  * Get port from environment and store in Express.
@@ -49,7 +48,7 @@ app.set('port', port);
 http.listen(app.get('port'), () => {
     console.log('server Running on Port: ', app.get('port'));
 });
-
+socket.setup(http);
 /**
  * Normalize a port into a number, string, or false.
  */

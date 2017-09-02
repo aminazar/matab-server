@@ -12,7 +12,7 @@ const helper = require('../lib/helpers');
 let io;
 let setup = http => {
 
-  io = require('socket.io')(http);
+  io = require('socket.io').listen(http);
   io.use(passportSocketIO.authorize({
     key: 'connect.sid',
     secret: 'HosKhedIDA',
