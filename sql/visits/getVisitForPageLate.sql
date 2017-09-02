@@ -12,7 +12,8 @@ join
 on
     patients.pid = visits.pid
 where
-    end_time is not null
+    start_time is not null
+    and end_time is not null
     and paper_id=${paper_id}
     and name=lower(${name})
     and start_waiting::date = current_date;
