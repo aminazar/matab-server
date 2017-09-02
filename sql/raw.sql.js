@@ -46,6 +46,7 @@ module.exports = {
     currentDoctorVisitToday:sql('visits/currentDoctorVisitToday.sql'),
     currentDoctorVisitTodayByWaiting:sql('visits/currentDoctorVisitTodayByWaiting.sql'),
     checkReferralConditions: sql('visits/checkReferralConditions.sql'),
+    checkUndoConditions: sql('visits/checkUndoConditions.sql'),
   },
 
   documents: {
